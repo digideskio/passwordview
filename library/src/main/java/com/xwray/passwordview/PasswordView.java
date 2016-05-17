@@ -3,10 +3,13 @@ package com.xwray.passwordview;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -27,6 +30,7 @@ public class PasswordView extends EditText {
     private final static int VISIBLITY_DISABLED = (int) (255 * .38f); // 38%
     private boolean visible = false;
     private boolean useStrikeThrough = false;
+    private int eyeTint = Color.BLACK;
     private Typeface typeface;
 
     public PasswordView(Context context) {
@@ -57,6 +61,7 @@ public class PasswordView extends EditText {
                     0, 0);
             try {
                 useStrikeThrough = a.getBoolean(R.styleable.PasswordView_useStrikeThrough, false);
+                eyeTint = a.getColor(R.styleable.PasswordView_eyeTint, Color.BLACK);
             } finally {
                 a.recycle();
             }
@@ -66,6 +71,8 @@ public class PasswordView extends EditText {
         // different visibilities.
         eye = ContextCompat.getDrawable(getContext(), R.drawable.ic_eye).mutate();
         eyeWithStrike = ContextCompat.getDrawable(getContext(), R.drawable.ic_eye_strike).mutate();
+        DrawableCompat.setTint(eye, eyeTint);
+        DrawableCompat.setTint(eyeWithStrike, eyeTint);
         eyeWithStrike.setAlpha(VISIBILITY_ENABLED);
         setup();
     }
@@ -94,6 +101,10 @@ public class PasswordView extends EditText {
         this.typeface = getTypeface();
         super.setInputType(type);
         setTypeface(typeface);
+    }
+
+    public void setEyeTint(@ColorInt int eyeTint) {
+        this.eyeTint = eyeTint;
     }
 
     public void setUseStrikeThrough(boolean useStrikeThrough) {

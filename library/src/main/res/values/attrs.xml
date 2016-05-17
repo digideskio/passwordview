@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="PasswordView">
         <attr name="useStrikeThrough" format="boolean" />
+        <attr name="eyeTint" format="color" />
     </declare-styleable>
 </resources>
