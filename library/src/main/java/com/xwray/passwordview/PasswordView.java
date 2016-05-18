@@ -79,7 +79,7 @@ public class PasswordView extends EditText {
 
     protected void setup() {
         setInputType(InputType.TYPE_CLASS_TEXT | (visible ? InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD : InputType.TYPE_TEXT_VARIATION_PASSWORD));
-        Drawable drawable = useStrikeThrough && !visible ? eyeWithStrike : eye;
+        Drawable drawable = useStrikeThrough && !visible ? eye : eyeWithStrike;
         Drawable[] drawables = getCompoundDrawables();
         setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], drawable, drawables[3]);
         eye.setAlpha(visible && !useStrikeThrough ? VISIBILITY_ENABLED : VISIBLITY_DISABLED);
